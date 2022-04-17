@@ -1,0 +1,69 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"version": "1.0",
+		"title": "API Documentation",
+		"license": {
+			"name": "MIT",
+			"url": "https://opensource.org/licenses/MIT"
+		}
+	},
+	"basePath": "/",
+	"tags": [
+		{
+			"name": "MONKE API"
+		}
+	],
+	"produces": ["application/json"],
+	"paths": {
+		"/create": {
+			"parameters": [
+				{
+					"name": "picture",
+					"in": "body",
+					"required": false,
+					"description": "picture to display",
+					"type": "string"
+				},
+				{
+					"name": "video",
+					"in": "body",
+					"required": true,
+					"description": "video to play when picture is clicked",
+					"type": "string"
+				}
+			],
+			"produces": ["application/json"],
+			"post": {
+				"tags": ["MONKE API"],
+				"summary": "Create a new monke trick with custom picture and video",
+				"responses": {
+					"200": {
+						"schema": {
+							"$ref": "#/definitions/Monke"
+						}
+					},
+					"404": {
+						"description": "not found"
+					},
+					"500": {
+						"description": "internal server error"
+					}
+				}
+			}
+		}
+	},
+	"definitions": {
+		"Monke": {
+			"type": "object",
+			"properties": {
+				"trickedUrl": {
+					"type": "string"
+				},
+				"statUrl": {
+					"type": "string"
+				}
+			}
+		}
+	}
+}
