@@ -1,10 +1,11 @@
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import { createServer } from "http";
 import bodyParser from "body-parser";
 
 import { init, collections } from "./database/dbConnection";
 import { config } from "dotenv";
 import { shortenerResult, zeroWidthShortener } from "./ZeroWidthShortener.class";
+import CustomRequest from "./customRequest.interface";
 
 config({ path: "../.env" });
 
@@ -21,13 +22,29 @@ app.get("/", (req, res) => {
 	res.send("Hello World");
 });
 
-app.post("/create", async (req: Request, res: Response) => {
+app.use("*", (req: Request, res: Response, next: NextFunction) => {
+	if (collections.urls) {
+		(req as CustomRequest).collection = collections.urls;
+		next();
+	} else {
+		res.status(500).send("An Error Occured");
+	}
+});
+
+app.post("/create", async (req, res: Response) => {
+	if (!req.body.picture || !req.body.video) return res.status(400).send("Missing picture or video");
+	const collection = (req as CustomRequest).collection;
+	//regex from https://regex101.com/r/OY96XI/1
+	let youtubeVideoId =
+		/(?:https?:)?(?:\/\/)?(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\S*?[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/.exec(
+			req.body.video
+		)![1];
 	let shortenerResult: shortenerResult = zeroWidthShortener.generateUrl();
-	await collections.urls?.insertOne(
+	await collection?.insertOne(
 		{
 			key: shortenerResult.url,
 			picture: req.body.picture,
-			video: req.body.video,
+			video: youtubeVideoId,
 		},
 		(err, result) => {
 			if (err) {
@@ -42,24 +59,28 @@ app.post("/create", async (req: Request, res: Response) => {
 	);
 });
 
-app.get("/:zeroWidth", async(req: Request, res: Response) => {
+app.get("/:zeroWidth", async (req: Request, res: Response) => {
 	let decoded = zeroWidthShortener.decode(req.params.zeroWidth);
-	collections.urls?.findOne({ key: decoded }, (err, result) => {
+	const collection = (req as CustomRequest)?.collection;
+	if (!collection) {
+		return res.status(500).send("An Error Occured");
+	}
+	collection.findOne({ key: decoded }, (err, result) => {
 		if (err || !result) {
-			res.status(500).send("An Error Occured");
+			return res.status(500).send("An Error Occured");
 		} else {
 			console.log(result);
-			res.status(200).send(`
+			return res.status(200).send(`
 			<!DOCTYPE html>
-			<head>
-				<meta property="og:type" content="video.other">
-				<meta property="twitter:player" content="${result.video}">
-				<meta property="og:video:type" content="text/html">
-				<meta property="og:video:width" content="900">
-				<meta property="og:video:height" content="506">
-				<meta name="twitter:image" content="${result.picture}">
-				<meta http-equiv="refresh" content="0;url=${result.video}">
-			</head>`);
+				<head>
+					<meta property="og:type" content="video.other">
+					<meta property="twitter:player" content="https://youtube.com/embed/${result.video}">
+					<meta property="og:video:type" content="text/html">
+					<meta property="og:video:width" content="900">
+					<meta property="og:video:height" content="506">
+					<meta name="twitter:image" content="${result.picture}">
+					<meta http-equiv="refresh" content="0;url=https://youtube.com/watch?v=${result.video}">
+				</head>`);
 		}
 	});
 });
