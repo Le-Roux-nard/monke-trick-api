@@ -1,0 +1,291 @@
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-family: "El Messiri", sans-serif;
+}
+
+html {
+	overflow: hidden;
+}
+
+.fas,
+.fab {
+	width: 32px;
+}
+
+section {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: calc(100vh - 80px);
+	max-height: calc(100vh - 80px);
+}
+
+.glass {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	padding: 50px;
+	width: 33%;
+	min-height: 50%;
+	background: rgba(0, 0, 0, 0.55);
+	backdrop-filter: blur(5px);
+	border-radius: 10px;
+	border: 1px solid rgba(255, 255, 255, 0.18);
+	box-sizing: unset !important;
+}
+
+.glass h1 {
+	font-size: 2.5rem;
+	font-weight: bold;
+	padding-bottom: 20px;
+	text-align: center;
+	width: 75%;
+	margin: 0 auto;
+}
+
+.glass h3 {
+	font-weight: bold;
+	padding-bottom: 15px;
+}
+
+.glass ol {
+	margin-left: 150px;
+	margin-bottom: 25px;
+	line-height: 2;
+}
+
+.glass a {
+	background: #0005;
+	color: #ddd;
+	padding: 5px;
+	border-radius: 5px;
+}
+
+.glass input[isValid="false"] {
+	border: 3px solid red;
+}
+
+.center {
+	display: block;
+	text-align: center;
+	width: 75%;
+	margin: 0 auto;
+}
+
+.alerts {
+	display: flex;
+	flex-flow: column nowrap;
+}
+
+.alert-danger {
+	color: rgb(223, 122, 131);
+	background-color: rgb(67, 12, 17);
+	border-color: rgb(106, 17, 26);
+}
+.alert {
+	position: relative;
+	padding: 1rem 1rem;
+	margin-bottom: 1rem;
+	border: 1px solid transparent;
+	border-radius: 0.25rem;
+	animation: append-animate .5s ease;
+}
+
+
+
+@keyframes append-animate {
+	0% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.5);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+.monke-form {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+.monke-form h2 {
+	color: #fff;
+	letter-spacing: 2px;
+	margin-bottom: 30px;
+}
+.monke-form .inputBx {
+	position: relative;
+	width: 100%;
+	margin-bottom: 20px;
+}
+.monke-form .inputBx input {
+	width: 100%;
+	outline: none;
+	border: none;
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	background: rgba(255, 255, 255, 0.2);
+	padding: 8px 10px;
+	padding-left: 40px;
+	border-radius: 15px;
+	color: #fff;
+	font-size: 16px;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+.monke-form .inputBx .password-control {
+	position: absolute;
+	top: 11px;
+	right: 10px;
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	background: url("../static/assets/img/view.svg") 0 0 no-repeat;
+	transition: 0.5s;
+}
+.monke-form .inputBx .view {
+	background: url("../static/assets/img/no-view.svg") 0 0 no-repeat;
+	transition: 0.5s;
+}
+.monke-form .inputBx .fas,
+.monke-form .inputBx .fab {
+	position: absolute;
+	top: 13px;
+	left: 13px;
+}
+.monke-form .inputBx input#submit {
+	background-color: #fff;
+	background: #fff;
+	color: #111;
+	max-width: 100px;
+	padding: 8px 10px;
+	box-shadow: none;
+	letter-spacing: 1px;
+	cursor: pointer;
+	transition: 1.5s;
+}
+.monke-form .inputBx input#submit:hover {
+	background: linear-gradient(115deg, rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.25));
+	color: #fff;
+	transition: 0.5s;
+}
+.monke-form .inputBx input::placeholder {
+	color: #fff;
+}
+.monke-form .inputBx span {
+	position: absolute;
+	left: 30px;
+	padding: 10px;
+	display: inline-block;
+	color: #fff;
+	transition: 0.5s;
+	pointer-events: none;
+}
+.monke-form .inputBx input:focus ~ span,
+.monke-form .inputBx input:valid ~ span,
+.monke-form .inputBx input:not(:placeholder-shown) ~ span {
+	transform: translateX(-30px) translateY(-25px);
+	font-size: 12px;
+}
+.monke-form p {
+	color: #fff;
+	font-size: 15px;
+	margin-top: 5px;
+}
+.monke-form p a {
+	color: #fff;
+}
+.monke-form p a:hover {
+	background-color: #000;
+	background-image: linear-gradient(to right, #434343 0%, black 100%);
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+.youtubeHolder {
+	height: 350px;
+	width: 520px;
+}
+
+.youtubePreview {
+	position: absolute;
+	top: 25%;
+	left: 0;
+	display: block;
+	width: 200%;
+	height: 330px;
+	margin-left: -50%;
+	overflow: hidden;
+}
+
+.youtubePlaceholder {
+	max-height: 100%;
+	height: 100%;
+	width: auto;
+}
+
+.youtubeHolder .youtubePreview[isValid="true"] .youtubePlaceholder {
+	height: 0;
+}
+
+.youtubePreview > iframe {
+	height: 300px;
+	width: 520px;
+	pointer-events: none;
+}
+
+.result {
+	position: relative;
+	display: block;
+	width: 100%;
+	height: 45px;
+	overflow: hidden;
+}
+
+
+#result {
+	max-height: 100%;
+	padding-left: 10px;
+	position: relative;
+	width: 100%;
+	height: 100%;
+	display: block;
+	margin: 0 auto;
+	transition: 2s;
+
+}
+
+#copy {
+	padding-left: 10px;
+	margin: 0;
+	display: block;
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 20%;
+	height: 100%;
+	border-radius: 0 25% 25% 0;
+	transition: 2s;
+}
+
+#copy:hover {
+	background-color: rgba(255, 255, 255, 0.25);
+	color: white;
+}
+
+.monke-form .inputBx .result #result:placeholder-shown ~ #copy,
+.monke-form .inputBx .result #result:placeholder-shown {
+	border: none;
+	height: 0;
+	padding: 0;
+}
+
+.monke-form .inputBx .result #result:not(:placeholder-shown) ~ #submit {
+	padding: 0;
+	border: none;
+	height: 0;
+}

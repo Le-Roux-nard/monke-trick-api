@@ -17,20 +17,16 @@
 	"produces": ["application/json"],
 	"paths": {
 		"/create": {
+			"consumes": ["application/json"],
 			"parameters": [
 				{
-					"name": "picture",
-					"in": "body",
-					"required": false,
-					"description": "picture to display",
-					"type": "string"
-				},
-				{
-					"name": "video",
+					"name": "",
 					"in": "body",
 					"required": true,
-					"description": "video to play when picture is clicked",
-					"type": "string"
+					"description": "picture to display",
+					"schema": {
+						"$ref":"#/definitions/PostTemplate"
+					}
 				}
 			],
 			"produces": ["application/json"],
@@ -57,10 +53,18 @@
 		"Monke": {
 			"type": "object",
 			"properties": {
-				"trickedUrl": {
+				"url": {
+					"type": "string"
+				}
+			}
+		},
+		"PostTemplate": {
+			"type": "object",
+			"properties": {
+				"video": {
 					"type": "string"
 				},
-				"statUrl": {
+				"picture": {
 					"type": "string"
 				}
 			}

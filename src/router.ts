@@ -32,10 +32,13 @@ export default ({ collection }: { collection: Collection | undefined }) => {
 		if (!req.body.picture || !req.body.video) return res.status(400).send("Missing picture or video");
 
 		//regex from https://regex101.com/r/OY96XI/1
-		let youtubeVideoId =
+		let regexResult =
 			/(?:https?:)?(?:\/\/)?(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\S*?[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/.exec(
 				req.body.video
-			)![1];
+			);
+
+		if (!regexResult || !regexResult[1]) return res.status(400).send("Invalid video url");
+		let youtubeVideoId = regexResult[1];
 		let shortenerResult: shortenerResult = zeroWidthShortener.generateUrl();
 		await collection?.insertOne(
 			{
@@ -48,8 +51,7 @@ export default ({ collection }: { collection: Collection | undefined }) => {
 					res.status(500).send("An Error Occured");
 				} else {
 					res.status(200).send({
-						shortUrl: shortenerResult.shortUrl,
-						hash: shortenerResult.url,
+						shortUrl: req.baseUrl + shortenerResult.shortUrl,
 					});
 				}
 			}

@@ -6,6 +6,7 @@ import { init, collections } from "./database/dbConnection";
 import { config } from "dotenv";
 import { shortenerResult, zeroWidthShortener } from "./ZeroWidthShortener.class";
 import CustomRequest from "./customRequest.interface";
+import * as Swagger from "swagger-ui-express";
 
 config({ path: "../.env" });
 
@@ -13,14 +14,24 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use("/static", express.static("../static"));
+app.set("views", "../views");
+app.set("view engine", "ejs");
 
 const httpServer = createServer(app);
 
 app.get("/", (req, res) => {
-	let dirName = __dirname.split("\\");
-	dirName.pop();
-	res.send("Hello World");
+	res.render("index");
 });
+
+const swaggerOptions = {
+	customCss: ".swagger-ui .topbar { display: none }",
+	customSiteTitle: "Documentation",
+	customfavIcon: "/favicon.ico",
+};
+const swaggerDoc = require("../swagger.json");
+
+app.use("/docs", Swagger.serve, Swagger.setup(swaggerDoc, swaggerOptions));
 
 app.use("*", (req: Request, res: Response, next: NextFunction) => {
 	if (collections.urls) {
@@ -31,14 +42,21 @@ app.use("*", (req: Request, res: Response, next: NextFunction) => {
 	}
 });
 
+app.get("/create", (req: Request, res: Response) => {
+	return res.render("create");
+});
+
 app.post("/create", async (req, res: Response) => {
 	if (!req.body.picture || !req.body.video) return res.status(400).send("Missing picture or video");
 	const collection = (req as CustomRequest).collection;
 	//regex from https://regex101.com/r/OY96XI/1
-	let youtubeVideoId =
+	let regexResult =
 		/(?:https?:)?(?:\/\/)?(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\S*?[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/.exec(
 			req.body.video
-		)![1];
+		);
+
+	if (!regexResult || !regexResult[1]) return res.status(400).send("Invalid video url");
+	let youtubeVideoId = regexResult[1];
 	let shortenerResult: shortenerResult = zeroWidthShortener.generateUrl();
 	await collection?.insertOne(
 		{
@@ -51,8 +69,7 @@ app.post("/create", async (req, res: Response) => {
 				res.status(500).send("An Error Occured");
 			} else {
 				res.status(200).send({
-					shortUrl: shortenerResult.shortUrl,
-					hash: shortenerResult.url,
+					url: req.headers.host + "/" + shortenerResult.shortUrl,
 				});
 			}
 		}
