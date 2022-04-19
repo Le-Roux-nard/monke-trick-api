@@ -39,13 +39,13 @@ export class zeroWidthShortener {
 
 	static generateUrl(): shortenerResult {
 		//generate a random string of length _maxUrlLength with chars from _chars
-		let url = "";
+		let zeroWidthEndpoint = "";
 		for (let i = 0; i < this._maxUrlLength; i++) {
-			url += this._chars[Math.floor(Math.random() * this._chars.length)];
+			zeroWidthEndpoint += this._chars[Math.floor(Math.random() * this._chars.length)];
 		}
 		return {
-			url: this.encode(url),
-			shortUrl: url,
+			decodedUrl: this.encode(zeroWidthEndpoint),
+			encodedUrl: zeroWidthEndpoint,
 		};
 	}
 
@@ -55,6 +55,6 @@ export class zeroWidthShortener {
 }
 
 export interface shortenerResult {
-	url: string;
-	shortUrl: string;
+	decodedUrl: string;
+	encodedUrl: string;
 }

@@ -60,7 +60,7 @@ app.post("/create", async (req, res: Response) => {
 	let shortenerResult: shortenerResult = zeroWidthShortener.generateUrl();
 	await collection?.insertOne(
 		{
-			key: shortenerResult.url,
+			key: shortenerResult.decodedUrl,
 			picture: req.body.picture,
 			video: youtubeVideoId,
 		},
@@ -69,7 +69,7 @@ app.post("/create", async (req, res: Response) => {
 				res.status(500).send("An Error Occured");
 			} else {
 				res.status(200).send({
-					url: req.headers.host + "/" + shortenerResult.shortUrl,
+					url: req.headers.host + "/" + shortenerResult.encodedUrl,
 				});
 			}
 		}

@@ -42,7 +42,7 @@ export default ({ collection }: { collection: Collection | undefined }) => {
 		let shortenerResult: shortenerResult = zeroWidthShortener.generateUrl();
 		await collection?.insertOne(
 			{
-				key: shortenerResult.url,
+				key: shortenerResult.decodedUrl,
 				picture: req.body.picture,
 				video: youtubeVideoId,
 			},
@@ -51,7 +51,7 @@ export default ({ collection }: { collection: Collection | undefined }) => {
 					res.status(500).send("An Error Occured");
 				} else {
 					res.status(200).send({
-						shortUrl: req.baseUrl + shortenerResult.shortUrl,
+						shortUrl: req.baseUrl + shortenerResult.encodedUrl,
 					});
 				}
 			}
