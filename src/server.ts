@@ -7,6 +7,7 @@ import { config } from "dotenv";
 import { shortenerResult, zeroWidthShortener } from "./ZeroWidthShortener.class";
 import CustomRequest from "./customRequest.interface";
 import * as Swagger from "swagger-ui-express";
+import { generateEmbed } from "./embed";
 
 config({ path: "../.env" });
 
@@ -87,17 +88,7 @@ app.get("/:zeroWidth", async (req: Request, res: Response) => {
 			return res.status(500).send("An Error Occured");
 		} else {
 			console.log(result);
-			return res.status(200).send(`
-			<!DOCTYPE html>
-				<head>
-					<meta property="og:type" content="video.other">
-					<meta property="twitter:player" content="https://youtube.com/embed/${result.video}">
-					<meta property="og:video:type" content="text/html">
-					<meta property="og:video:width" content="900">
-					<meta property="og:video:height" content="506">
-					<meta name="twitter:image" content="${result.picture}">
-					<meta http-equiv="refresh" content="0;url=https://youtube.com/watch?v=${result.video}">
-				</head>`);
+			return res.status(200).send(generateEmbed(result.video, result.picture));
 		}
 	});
 });
