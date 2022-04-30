@@ -22,7 +22,7 @@ app.set("view engine", "ejs");
 const httpServer = createServer(app);
 
 app.get("/", (req, res) => {
-	res.render("index");
+	res.render("monke/index");
 });
 
 const swaggerOptions = {
@@ -44,7 +44,7 @@ app.use("*", (req: Request, res: Response, next: NextFunction) => {
 });
 
 app.get("/create", (req: Request, res: Response) => {
-	return res.render("create");
+	return res.render("monke/create");
 });
 
 app.post("/create", async (req, res: Response) => {

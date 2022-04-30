@@ -143,11 +143,11 @@ section {
 	display: inline-block;
 	width: 20px;
 	height: 20px;
-	background: url("../static/assets/img/view.svg") 0 0 no-repeat;
+	background: url("../static/monke/assets/img/view.svg") 0 0 no-repeat;
 	transition: 0.5s;
 }
 .monke-form .inputBx .view {
-	background: url("../static/assets/img/no-view.svg") 0 0 no-repeat;
+	background: url("../static/monke/assets/img/no-view.svg") 0 0 no-repeat;
 	transition: 0.5s;
 }
 .monke-form .inputBx .fas,
