@@ -59,6 +59,14 @@ export default ({ collection }: { collection: Collection | undefined }) => {
 		);
 	});
 
+	router.get("/", (req: Request, res: Response) => {
+		res.render("monke/index");
+	});
+
+	router.get("/create", (req: Request, res: Response) => {
+		return res.render("monke/create");
+	});
+
 	router.get("/:zeroWidth", async (req: Request, res: Response) => {
 		let decoded = zeroWidthShortener.decode(req.params.zeroWidth);
 		collection?.findOne({ key: decoded }, (err, result) => {
