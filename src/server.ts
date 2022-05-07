@@ -87,7 +87,6 @@ app.get("/:zeroWidth", async (req: Request, res: Response) => {
 		if (err || !result) {
 			return res.status(500).send("An Error Occured");
 		} else {
-			console.log(result);
 			return res.status(200).send(generateEmbed(result.video, result.picture));
 		}
 	});

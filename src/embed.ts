@@ -1,4 +1,4 @@
-export const generateEmbed = async (youtubeVideoUrl : string, pictureLink : string) => {
+export const generateEmbed = (youtubeVideoUrl : string, pictureLink : string) => {
 	return `<!DOCTYPE html>
   <head>
   <meta property="og:type" content="video.other">

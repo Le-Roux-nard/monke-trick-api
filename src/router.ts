@@ -60,6 +60,7 @@ export default ({ collection }: { collection: Collection | undefined }) => {
 	});
 
 	router.get("/", (req: Request, res: Response) => {
+		if(!req.url.endsWith("/")) return res.redirect(`${req.url}/`);
 		res.render("monke/index");
 	});
 
