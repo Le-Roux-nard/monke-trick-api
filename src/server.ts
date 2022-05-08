@@ -72,7 +72,7 @@ app.post("/create", async (req, res: Response) => {
 				res.status(500).send("An Error Occured");
 			} else {
 				res.status(200).send({
-					url: `${req.headers.host}/${req.baseUrl ? `${req.baseUrl}/${shortenerResult.encodedUrl}` : shortenerResult.encodedUrl}`,
+					shortUrl: `${req.headers.host}/${shortenerResult.encodedUrl}`,
 				});
 			}
 		}
