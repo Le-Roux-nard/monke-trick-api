@@ -18,7 +18,7 @@
 			}
 		</style>
 	</head>
-	<body>
+	<body data-base_url=<%= baseUrl %> >
 		<%- include('../partials/navbar.ejs') %>
 		<div class="d-xl-flex flex-row justify-content-center align-content-center">
 			<div class="glass">
@@ -102,13 +102,13 @@
 
 				const xhr = new XMLHttpRequest();
 				xhr.onload = function () {
-					// console.log(this.responseText);
+					console.log(this.responseText);
 					try {
 						const response = JSON.parse(this.responseText);
-						if (response.url) {
+						if (response.shortUrl) {
 							let resultInput = document.querySelector("#result");
-							resultInput.value = response.url;
-							resultInput.placeholder = response.url;
+							resultInput.value = response.shortUrl;
+							resultInput.placeholder = response.shortUrl;
 						}
 					} catch (e) {
 						let div = document.createElement("div");
@@ -117,7 +117,10 @@
 						document.querySelector(".alerts").innerHTML = div.outerHTML;
 					}
 				};
-				xhr.open("POST", "./create", true);
+				let baseUrl = document.querySelector("body").dataset.base_url;
+				console.log(baseUrl)
+				console.log(`${baseUrl}/create`)
+				xhr.open("POST", `${baseUrl ?? ""}/create`, true);
 				xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 				xhr.send(JSON.stringify(payload));
 			}

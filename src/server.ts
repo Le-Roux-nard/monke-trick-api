@@ -9,6 +9,8 @@ import CustomRequest from "./customRequest.interface";
 import * as Swagger from "swagger-ui-express";
 import { generateEmbed } from "./embed";
 
+import setupRouter from "./router";
+
 config({ path: "../.env" });
 
 const app = express();
@@ -44,7 +46,7 @@ app.use("*", (req: Request, res: Response, next: NextFunction) => {
 });
 
 app.get("/create", (req: Request, res: Response) => {
-	return res.render("monke/create");
+	return res.render("monke/create", { baseUrl: req.baseUrl });
 });
 
 app.post("/create", async (req, res: Response) => {
@@ -70,7 +72,7 @@ app.post("/create", async (req, res: Response) => {
 				res.status(500).send("An Error Occured");
 			} else {
 				res.status(200).send({
-					url: req.headers.host + "/" + shortenerResult.encodedUrl,
+					url: `${req.headers.host}/${req.baseUrl ? `${req.baseUrl}/${shortenerResult.encodedUrl}` : shortenerResult.encodedUrl}`,
 				});
 			}
 		}

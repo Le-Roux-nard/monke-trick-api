@@ -52,7 +52,7 @@ export default ({ collection }: { collection: Collection | undefined }) => {
 					res.status(500).send("An Error Occured");
 				} else {
 					res.status(200).send({
-						shortUrl: req.baseUrl + shortenerResult.encodedUrl,
+						shortUrl: `${req.headers.host}${req.baseUrl ? `${req.baseUrl}/` : ""}${shortenerResult.encodedUrl}`,
 					});
 				}
 			}
@@ -60,12 +60,11 @@ export default ({ collection }: { collection: Collection | undefined }) => {
 	});
 
 	router.get("/", (req: Request, res: Response) => {
-		if(!req.url.endsWith("/")) return res.redirect(`${req.url}/`);
 		res.render("monke/index");
 	});
 
 	router.get("/create", (req: Request, res: Response) => {
-		return res.render("monke/create");
+		return res.render("monke/create", {baseUrl: req.baseUrl});
 	});
 
 	router.get("/:zeroWidth", async (req: Request, res: Response) => {
