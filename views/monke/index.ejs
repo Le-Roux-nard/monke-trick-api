@@ -16,25 +16,27 @@
 			}
 		</style>
 	</head>
-	<body>
-		<%- include('../partials/navbar.ejs') %>
+	<body data-base_url=<%= baseUrl %> >
+		<%- include('../partials/navbar.ejs', {baseUrl:baseUrl}) %>
 		<div class="d-xl-flex flex-row justify-content-center align-content-center">
-				<div class="glass">
-					<h1 class="center">Monke Trick</h1>
-					<h3 class="center">How to trick a monkey in 4 steps</h3>
-					<ol>
-						<li>Go to <a href="./create">the create page</a></li>
-						<li>Provide a picture and a youtube video to use</li>
-						<li>Copy your link</li>
-						<li>Send it on discord and wait for monke to click</li>
-					</ol>
-					<a href="https://youtu.be/dQw4w9WgXcQ">
-						<img class="center" src="/static/monke/assets/img/ezgif.com-gif-maker.gif" />
-					</a>
-				</div>
+			<div class="glass">
+				<h1 class="center">Monke Trick</h1>
+				<h3 class="center">How to trick a monkey in 4 steps</h3>
+				<ol>
+					<li>Go to <a id="redirectToCreate" href="#">the create page</a></li>
+					<li>Provide a picture and a youtube video to use</li>
+					<li>Copy your link</li>
+					<li>Send it on discord and wait for monke to click</li>
+				</ol>
+				<a href="https://youtu.be/dQw4w9WgXcQ">
+					<img class="center" src="/static/monke/assets/img/ezgif.com-gif-maker.gif" />
+				</a>
+			</div>
 		</div>
 		<script>
-			
+			baseUrl = document.body.dataset.base_url;
+			let redirectToCreate = document.getElementById("redirectToCreate");
+			redirectToCreate.href = baseUrl + "/create";
 		</script>
 	</body>
 </html>

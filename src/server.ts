@@ -24,7 +24,7 @@ app.set("view engine", "ejs");
 const httpServer = createServer(app);
 
 app.get("/", (req, res) => {
-	res.render("monke/index");
+	res.render("monke/index", {baseUrl : req.baseUrl});
 });
 
 const swaggerOptions = {
@@ -96,6 +96,9 @@ app.get("/:zeroWidth", async (req: Request, res: Response) => {
 
 let port = process.env.PORT ?? 8081;
 init().then(() => {
+
+	app.use("/test", setupRouter({collection : collections.urls}));
+
 	httpServer.listen(port, () => {
 		console.log(`Monke API started on port ${port}`);
 	});

@@ -60,7 +60,7 @@ export default ({ collection }: { collection: Collection | undefined }) => {
 	});
 
 	router.get("/", (req: Request, res: Response) => {
-		res.render("monke/index");
+		res.render("monke/index", {baseUrl : req.baseUrl});
 	});
 
 	router.get("/create", (req: Request, res: Response) => {
