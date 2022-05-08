@@ -49,6 +49,10 @@ export class zeroWidthShortener {
 		};
 	}
 
+	static getChars(): string[] {
+		return this._chars;
+	}
+
 	static decode(str: string): string {
 		return zeroWidthShortener.encode(str);
 	}
