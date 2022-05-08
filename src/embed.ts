@@ -1,4 +1,4 @@
-export const generateEmbed = (youtubeVideoUrl: string, pictureLink: string) => {
+export const generateEmbed = (youtubeVideoId: string, pictureLink: string) => {
 	return `<!DOCTYPE html>
   <!--                                                                                                                                             
                     **       *        *  *                                
@@ -32,13 +32,13 @@ export const generateEmbed = (youtubeVideoUrl: string, pictureLink: string) => {
               /(((//(((((######%%#%                                        
                 //////((/((((((%
 -->
-<head>  
+<head>
   <meta property="og:type" content="video.other">
+  <meta property="twitter:player" content="https://www.youtube.com/embed/${youtubeVideoId}">
   <meta property="og:video:type" content="text/html">
   <meta property="og:video:width" content="900">
   <meta property="og:video:height" content="506">
-  <meta property="og:video:url" content="https://youtube.com/embed/${youtubeVideoUrl}">
   <meta name="twitter:image" content="${pictureLink}">
-  <meta http-equiv="refresh" content="0;url=https://youtube.com/watch?v=${youtubeVideoUrl}">
+  <meta http-equiv="refresh" content="0;url=https://www.youtube.com/watch?v=${youtubeVideoId}">
 </head>`;
 };
