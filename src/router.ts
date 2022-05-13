@@ -32,20 +32,12 @@ export default ({ collection }: { collection: Collection | undefined }) => {
 	router.post("/create", async (req: Request, res: Response) => {
 		if (!req.body.picture || !req.body.video) return res.status(400).send("Missing picture or video");
 
-		//regex from https://regex101.com/r/OY96XI/1
-		let regexResult =
-			/(?:https?:)?(?:\/\/)?(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\S*?[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/.exec(
-				req.body.video
-			);
-
-		if (!regexResult || !regexResult[1]) return res.status(400).send("Invalid video url");
-		let youtubeVideoId = regexResult[1];
 		let shortenerResult: shortenerResult = zeroWidthShortener.generateUrl();
 		await collection?.insertOne(
 			{
 				key: shortenerResult.decodedUrl,
 				picture: req.body.picture,
-				video: youtubeVideoId,
+				video: req.body.video,
 			},
 			(err, result) => {
 				if (err) {

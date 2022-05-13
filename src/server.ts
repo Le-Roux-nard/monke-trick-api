@@ -24,13 +24,13 @@ app.set("view engine", "ejs");
 const httpServer = createServer(app);
 
 app.get("/", (req, res) => {
-	res.render("monke/index", {baseUrl : req.baseUrl});
+	res.render("monke/index", { baseUrl: req.baseUrl });
 });
 
 const swaggerOptions = {
 	customCss: ".swagger-ui .topbar { display: none }",
 	customSiteTitle: "Documentation",
-	customfavIcon: "/favicon.ico",
+	customfavIcon: "/assets/img/favicon.ico",
 };
 const swaggerDoc = require("../swagger.json");
 
@@ -52,20 +52,12 @@ app.get("/create", (req: Request, res: Response) => {
 app.post("/create", async (req, res: Response) => {
 	if (!req.body.picture || !req.body.video) return res.status(400).send("Missing picture or video");
 	const collection = (req as CustomRequest).collection;
-	//regex from https://regex101.com/r/OY96XI/1
-	let regexResult =
-		/(?:https?:)?(?:\/\/)?(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\S*?[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/.exec(
-			req.body.video
-		);
-
-	if (!regexResult || !regexResult[1]) return res.status(400).send("Invalid video url");
-	let youtubeVideoId = regexResult[1];
 	let shortenerResult: shortenerResult = zeroWidthShortener.generateUrl();
 	await collection?.insertOne(
 		{
 			key: shortenerResult.decodedUrl,
 			picture: req.body.picture,
-			video: youtubeVideoId,
+			video: req.body.video,
 		},
 		(err, result) => {
 			if (err) {
@@ -96,8 +88,7 @@ app.get("/:zeroWidth", async (req: Request, res: Response) => {
 
 let port = process.env.PORT ?? 8081;
 init().then(() => {
-
-	app.use("/test", setupRouter({collection : collections.urls}));
+	app.use("/test", setupRouter({ collection: collections.urls }));
 
 	httpServer.listen(port, () => {
 		console.log(`Monke API started on port ${port}`);
