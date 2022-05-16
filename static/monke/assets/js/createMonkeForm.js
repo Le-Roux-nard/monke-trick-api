@@ -13,7 +13,7 @@ document.getElementById("videoInput").addEventListener("change",  async function
         let timestampResult = timestampRegex.exec(tmp_user_url) ?? undefined;
         videoHolder.src = ""
         if (!!timestampResult) {
-            console.log("test");
+            console.log("prout");
             setTimeout(() => {
             player?.seekTo(timestampResult[1], true);
           }, 750);
