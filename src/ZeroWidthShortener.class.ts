@@ -33,7 +33,7 @@ export class zeroWidthShortener {
 
 	private static _maxUrlLength: number = 10;
 
-	private static encode(str: string): string {
+	private static toBase64(str: string): string {
 		return Buffer.from(str).toString("base64");
 	}
 
@@ -44,8 +44,9 @@ export class zeroWidthShortener {
 			zeroWidthEndpoint += this._chars[Math.floor(Math.random() * this._chars.length)];
 		}
 		return {
-			decodedUrl: this.encode(zeroWidthEndpoint),
-			encodedUrl: zeroWidthEndpoint,
+			invisibleString: zeroWidthEndpoint,
+			decodedString: this.toBase64(zeroWidthEndpoint),
+			hexString: Buffer.from(zeroWidthEndpoint, "utf-8").toString("hex").toUpperCase().replace(/(.{2})/g, "$1%").slice(0, -1),
 		};
 	}
 
@@ -54,11 +55,12 @@ export class zeroWidthShortener {
 	}
 
 	static decode(str: string): string {
-		return zeroWidthShortener.encode(str);
+		return zeroWidthShortener.toBase64(str);
 	}
 }
 
 export interface shortenerResult {
-	decodedUrl: string;
-	encodedUrl: string;
+	invisibleString: string;
+	decodedString: string;
+	hexString: string;
 }

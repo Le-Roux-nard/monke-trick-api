@@ -55,7 +55,8 @@ app.post("/create", async (req, res: Response) => {
 	let shortenerResult: shortenerResult = zeroWidthShortener.generateUrl();
 	await collection?.insertOne(
 		{
-			key: shortenerResult.decodedUrl,
+			key: shortenerResult.decodedString,
+			hex: shortenerResult.hexString,
 			picture: req.body.picture,
 			video: req.body.video,
 		},
@@ -64,7 +65,7 @@ app.post("/create", async (req, res: Response) => {
 				res.status(500).send("An Error Occured");
 			} else {
 				res.status(200).send({
-					shortUrl: `${req.headers.origin}/${shortenerResult.encodedUrl}`,
+					shortUrl: `${req.headers.origin}/${shortenerResult.invisibleString}`,
 				});
 			}
 		}
@@ -72,11 +73,11 @@ app.post("/create", async (req, res: Response) => {
 });
 
 app.get("/:zeroWidth", async (req: Request, res: Response) => {
-	let decoded = zeroWidthShortener.decode(req.params.zeroWidth);
 	const collection = (req as CustomRequest)?.collection;
 	if (!collection) {
 		return res.status(500).send("An Error Occured");
 	}
+	let decoded = zeroWidthShortener.decode(req.params.zeroWidth);
 	collection.findOne({ key: decoded }, (err, result) => {
 		if (err || !result) {
 			return res.status(500).send("An Error Occured");
@@ -88,8 +89,6 @@ app.get("/:zeroWidth", async (req: Request, res: Response) => {
 
 let port = process.env.PORT ?? 8081;
 init().then(() => {
-	app.use("/prout", setupRouter({ collection: collections.urls }));
-
 	httpServer.listen(port, () => {
 		console.log(`Monke API started on port ${port}`);
 	});

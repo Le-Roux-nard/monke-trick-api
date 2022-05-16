@@ -2,12 +2,12 @@ export const generateEmbed = (videoUrl: string, pictureLink: string) => {
 	let regex =
 		/(?:https?:)?(?:\/\/)?(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\S*?[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/;
 	let regexResult = regex.exec(videoUrl) ?? undefined;
-  let metadata
-  if(!!regexResult){
-    metadata = generateYoutubeMeta(regexResult[1], pictureLink);
-  }else{
-    metadata = generateVideoMeta(videoUrl, pictureLink);
-  }
+	let metadata;
+	if (!!regexResult) {
+		metadata = generateYoutubeMeta(regexResult[1], pictureLink);
+	} else {
+		metadata = generateVideoMeta(videoUrl, pictureLink);
+	}
 	return `<!DOCTYPE html>
   <!--                                                                                                                                             
                     **       *        *  *                                
@@ -43,6 +43,7 @@ export const generateEmbed = (videoUrl: string, pictureLink: string) => {
 -->
 <head>
   ${metadata}
+  <meta http-equiv="refresh" content="0;url=${videoUrl}">;
 </head>`;
 };
 
@@ -62,6 +63,5 @@ const generateVideoMeta = (videoLink: string, pictureLink: string) => {
   <meta property="og:type" content="video.other">
   <meta property="og:video:url" content="${videoLink}">
   <meta property="og:video:width" content="900">
-  <meta property="og:video:height" content="506">
-  <meta http-equiv="refresh" content="0;url=${videoLink}">`;
+  <meta property="og:video:height" content="506">`;
 };

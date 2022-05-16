@@ -35,7 +35,8 @@ export default ({ collection }: { collection: Collection | undefined }) => {
 		let shortenerResult: shortenerResult = zeroWidthShortener.generateUrl();
 		await collection?.insertOne(
 			{
-				key: shortenerResult.decodedUrl,
+				key: shortenerResult.decodedString,
+				hex: shortenerResult.hexString,
 				picture: req.body.picture,
 				video: req.body.video,
 			},
@@ -44,7 +45,7 @@ export default ({ collection }: { collection: Collection | undefined }) => {
 					res.status(500).send("An Error Occured");
 				} else {
 					res.status(200).send({
-						shortUrl: `${req.headers.origin}/${shortenerResult.encodedUrl}`,
+						shortUrl: `${req.headers.origin}/${shortenerResult.invisibleString}`,
 					});
 				}
 			}
