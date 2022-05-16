@@ -53,11 +53,11 @@ export default ({ collection }: { collection: Collection | undefined }) => {
 	});
 
 	router.get("/", (req: Request, res: Response) => {
-		res.render("monke/index", {baseUrl : req.baseUrl});
+		res.render("monke/index", { baseUrl: req.baseUrl });
 	});
 
 	router.get("/create", (req: Request, res: Response) => {
-		return res.render("monke/create", {baseUrl: req.baseUrl});
+		return res.render("monke/create", { baseUrl: req.baseUrl });
 	});
 
 	router.get("/:zeroWidth", async (req: Request, res: Response) => {
@@ -67,7 +67,7 @@ export default ({ collection }: { collection: Collection | undefined }) => {
 				res.status(500).send("An Error Occured");
 			} else {
 				console.log(result);
-				return res.status(200).send(generateEmbed(result.video, result.picture));
+				return res.status(200).send(generateEmbed(result.video, result?.title ?? null, result.picture));
 			}
 		});
 	});

@@ -18,8 +18,9 @@
 }
 
 .hidden {
-  height: 0;
-  display: none;
-  border: unset;
+  all:unset !important;
+  height: 0 !important;
+  display: none !important;
+  border: unset !important;
 }
 

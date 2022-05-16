@@ -6,6 +6,8 @@ const urlSchema = new mongoose.Schema(
 		id: mongoose.Types.ObjectId,
 		video: String,
 		picture: String,
+		hex:String,
+		title:String,
 		key: {
 			type: String,
 			unique: true,

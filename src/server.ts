@@ -59,6 +59,7 @@ app.post("/create", async (req, res: Response) => {
 			hex: shortenerResult.hexString,
 			picture: req.body.picture,
 			video: req.body.video,
+			title: req.body.title ?? null,
 		},
 		(err, result) => {
 			if (err) {
@@ -82,7 +83,7 @@ app.get("/:zeroWidth", async (req: Request, res: Response) => {
 		if (err || !result) {
 			return res.status(500).send("An Error Occured");
 		} else {
-			return res.status(200).send(generateEmbed(result.video, result.picture));
+			return res.status(200).send(generateEmbed(result.video, result?.title ?? null, result.picture));
 		}
 	});
 });
