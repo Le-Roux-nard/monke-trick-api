@@ -44,7 +44,7 @@ export default ({ collection }: { collection: Collection | undefined }) => {
 					res.status(500).send("An Error Occured");
 				} else {
 					res.status(200).send({
-						shortUrl: `${req.headers.host}${shortenerResult.encodedUrl}`,
+						shortUrl: `${req.headers.origin}${shortenerResult.encodedUrl}`,
 					});
 				}
 			}
