@@ -39,6 +39,7 @@ export default ({ collection }: { collection: Collection | undefined }) => {
 				hex: shortenerResult.hexString,
 				picture: req.body.picture,
 				video: req.body.video,
+				title: req.body.title ?? null,
 			},
 			(err, result) => {
 				if (err) {

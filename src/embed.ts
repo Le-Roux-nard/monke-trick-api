@@ -74,6 +74,7 @@ const generateFakeYoutubeMeta = (videoId: string, videoTitle: string, pictureLin
 
 const generateHiddenYoutubeMeta = (videoId: string, pictureLink: string) => {
 	return `
+  <meta property="og:image" content="${pictureLink}">
   <meta property="og:type" content="video.other">
   <meta property="og:video:type" content="text/html">
   <meta property="og:video:url" content="https://www.youtube.com/embed/${videoId}">
