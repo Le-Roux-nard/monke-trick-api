@@ -1,0 +1,9 @@
+body {
+  background: url("../../assets/img/messier-106-3840x2160-stars-4k-16845.jpg");
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+

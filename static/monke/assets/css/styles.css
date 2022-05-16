@@ -1,68 +1,25 @@
-/* Page styles */
-
-body {
-  background-color: #f3f3f3;
-}
-
-/* Header */
-
-header img {
-  max-width: 120px;
-}
-
-header h1 {
-  font-weight: bold;
-  font-size: 28px;
-}
-
-/* Content */
-
 .main {
-  max-width: 720px;
-  padding: 18px 20px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 70%;
+  transform: translate(-50%,0%);
 }
 
-@media (min-width: 576px) {
-  .main {
-    padding: 36px 42px;
-  }
-}
-
-.content h2 {
-  font-size: 22px;
-  font-weight: bold;
-  margin: 40px 0 24px;
-}
-
-.content h2 span:before {
-  content: '#';
-  font-weight: normal;
-}
-
-.content h2 span {
-  color: var(--primary);
-}
-
-.content figure {
+.ressource-viewer {
   display: block;
-  text-align: center;
-  margin: 20px 0;
+  width: 520px;
+  height: 350px;
 }
 
-.content figcaption {
-  font-size: 12px;
-  padding-top: 5px;
+.center {
+  display: block;
+  margin: 0 auto;
 }
 
-.content div.dropdown {
-  margin: 40px auto;
-  width: 132px;
-}
-
-.content blockquote p {
-  font-size: 14px;
-  padding: 15px 20px;
-  border-left: 3px solid #edecf2;
-  background-color: #f9f9fb;
+.hidden {
+  height: 0;
+  display: none;
+  border: unset;
 }
 

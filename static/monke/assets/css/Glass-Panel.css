@@ -1,0 +1,102 @@
+.btn {
+  text-decoration: none;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-color: white;
+  border-width: 1.5px;
+  border-radius: 25px;
+  background-color: transparent;
+  font-size: large;
+}
+
+.jumbotron.jumbotron-fluid.text-center {
+  color: white;
+  background: rgba(52, 58, 64, 0.4);
+  margin: auto;
+}
+
+.center {
+  text-align: center;
+}
+
+.aspect-ratio-box {
+  height: 0;
+  overflow: hidden;
+  padding-top: calc(9/ 16 * 100%);
+  background: rgba(0,0,0,0.5);
+  position: relative;
+  backdrop-filter: blur(10px);
+}
+
+.aspect-ratio-box-inside {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glass {
+  padding: 50px;
+  padding-top: 75px;
+  width: 80%;
+  background: rgba(0, 0, 0, 0.55) !important;
+  backdrop-filter: blur(5px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-sizing: unset !important;
+  color: white;
+}
+
+.glass-button {
+  display: block;
+  padding: 16px 24px;
+  text-decoration: none;
+  border-radius: 15px;
+  background-color: rgba(255,255,255,0.1) !important;
+  border: 1px solid rgba(255,255,255,0.2) !important;
+  backdrop-filter: blur(30px);
+  color: rgba(255,255,255,0.8);
+  font-size: 1em;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: all 0.5s;
+  text-align: center;
+}
+
+.glass-button:hover {
+  background-color: rgba(255,255,255,0.2) !important;
+}
+
+.glass-button:focus {
+  border: 2px solid rgba(255,255,255,0.3) !important;
+  
+}
+
+input.glass-button {
+  color: white;
+  background: rgba(255,255,255,0.2) !important;
+}
+
+
+input.glass-button:not(:placeholder-shown) {
+  font-family: var(--bs-body-font-family) !important;
+  letter-spacing: initial;
+  text-transform: none;
+}
+
+.glass a {
+  color: white;
+  background-color: rgba(0,0,0,0.3);
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.card-img {
+  height: auto;
+  margin: 0 auto;
+  margin-top: 2em;
+  min-width: 50%;
+  max-width: 750px;
+}
+

@@ -1,0 +1,66 @@
+.form-control-borderless {
+  border: none;
+}
+
+.form-control-borderless:hover, .form-control-borderless:active, .form-control-borderless:focus {
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.copy-div {
+  transition: all 1s;
+}
+
+.copy-button-target {
+  border-radius: 15px 0 0 15px;
+}
+
+.copy-button {
+  border-radius: 0 15px 15px 0 !important;
+  border-left: unset !important;
+  background-color: rgba(255,255,255,0.4) !important;
+  color: white !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+.copy-button-target:placeholder-shown, .copy-button-target:placeholder-shown ~ .copy-button {
+  height: 0 !important;
+  border: none;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+}
+
+.copy-button-target:not(:placeholder-shown ) ~ #submitForm {
+  height: 0;
+  border: none;
+  padding: 0;
+  margin: 0;
+  opacity: 0;
+}
+
+.copy-div * {
+  transition: all 1s;
+  justify-items: center;
+}
+
+.glass .copy-button-target:focus ~ .copy-button {
+  border-color: rgba(255,255,255,1);
+  color: inherit;
+  background-color: rgba(255,255,255,0.2);
+  box-shadow: .25rem 0 0 .25rem rgba(255,255,255,.25);
+}
+
+.glass .copy-button-target:focus {
+  border-color: rgba(255,255,255,1);
+  color: inherit;
+  background-color: rgba(255,255,255,0.2);
+  box-shadow: -.25rem 0 0 .25rem rgba(255,255,255,.25);
+}
+
+.glass-button:disabled {
+  background-color: rgba(255,255,255,0.2);
+}
+
